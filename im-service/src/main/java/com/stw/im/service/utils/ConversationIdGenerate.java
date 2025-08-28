@@ -2,7 +2,7 @@ package com.stw.im.service.utils;
 
 
 /**
- * @author: Chackylee
+ * @author: stw
  **/
 public class ConversationIdGenerate {
 

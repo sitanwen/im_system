@@ -3,7 +3,7 @@ package com.stw.im.common.enums;
 import com.stw.im.common.exception.ApplicationExceptionEnum;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description:
  **/
 public enum GroupErrorCode implements ApplicationExceptionEnum {

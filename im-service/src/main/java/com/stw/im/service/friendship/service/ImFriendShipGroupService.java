@@ -6,7 +6,7 @@ import com.stw.im.service.friendship.model.req.AddFriendShipGroupReq;
 import com.stw.im.service.friendship.model.req.DeleteFriendShipGroupReq;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description:
  **/
 public interface ImFriendShipGroupService {

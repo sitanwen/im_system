@@ -1,7 +1,7 @@
 package com.stw.im.service.interceptor;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description:
  **/
 public class RequestHolder {

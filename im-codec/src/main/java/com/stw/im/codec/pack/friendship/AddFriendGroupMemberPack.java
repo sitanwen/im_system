@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description: 好友分组添加成员通知包
  **/
 @Data

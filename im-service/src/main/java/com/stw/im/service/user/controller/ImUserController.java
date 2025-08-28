@@ -55,7 +55,7 @@ public class ImUserController {
      * @param [req]
      * @return com.stw.im.common.ResponseVO
      * @description im的登录接口，返回im地址
-     * @author chackylee
+     * @author stw
      */
     @RequestMapping("/login")
     public ResponseVO login(@RequestBody @Validated LoginReq req, Integer appId) {

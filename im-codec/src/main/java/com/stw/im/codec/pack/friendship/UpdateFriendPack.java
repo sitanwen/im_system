@@ -4,7 +4,7 @@ import lombok.Data;
 
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description: 修改好友通知报文
  **/
 @Data

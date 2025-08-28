@@ -3,7 +3,7 @@ package com.stw.im.codec.pack.friendship;
 import lombok.Data;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description: 用户添加黑名单以后tcp通知数据包
  **/
 @Data

@@ -6,7 +6,7 @@ import com.github.jeffreyning.mybatisplus.anno.AutoMap;
 import lombok.Data;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description:
  **/
 

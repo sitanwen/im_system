@@ -3,7 +3,7 @@ package com.stw.im.codec.pack.friendship;
 import lombok.Data;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description: 添加好友通知报文
  **/
 @Data

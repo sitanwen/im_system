@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description: 删除分组，同时删除分组下的成员
  **/
 @Data

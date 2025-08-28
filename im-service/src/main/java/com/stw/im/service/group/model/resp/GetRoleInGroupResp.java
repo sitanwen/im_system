@@ -3,7 +3,7 @@ package com.stw.im.service.group.model.resp;
 import lombok.Data;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description:
  **/
 @Data

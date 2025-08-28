@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description: 数据库用户数据实体类
  **/
 

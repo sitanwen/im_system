@@ -5,7 +5,7 @@ import com.stw.message.dao.ImMessageBodyEntity;
 import lombok.Data;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description:
  **/
 @Data

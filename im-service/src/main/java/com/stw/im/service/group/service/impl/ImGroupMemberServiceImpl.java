@@ -199,7 +199,7 @@ public class ImGroupMemberServiceImpl implements ImGroupMemberService {
      * @param [groupId, memberId, appId]
      * @return com.stw.im.common.ResponseVO<com.stw.im.service.group.model.resp.GetRoleInGroupResp>
      * @description 查询用户在群内的角色
-     * @author chackylee
+     * @author stw
      */
     @Override
     public ResponseVO<GetRoleInGroupResp> getRoleInGroupOne(String groupId, String memberId, Integer appId) {

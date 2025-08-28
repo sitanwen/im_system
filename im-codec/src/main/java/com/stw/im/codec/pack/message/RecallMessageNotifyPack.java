@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description: 撤回消息通知报文
  **/
 @Data

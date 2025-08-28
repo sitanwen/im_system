@@ -6,7 +6,7 @@ import com.stw.im.codec.proto.MessageHeader;
 import io.netty.buffer.ByteBuf;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description: 将ByteBuf转化为Message实体，根据私有协议转换
  *               私有协议规则，
  *               4位表示Command表示消息的开始，

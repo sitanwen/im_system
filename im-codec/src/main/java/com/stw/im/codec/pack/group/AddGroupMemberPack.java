@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description: 群内添加群成员通知报文
  **/
 @Data

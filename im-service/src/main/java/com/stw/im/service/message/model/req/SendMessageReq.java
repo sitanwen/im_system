@@ -4,7 +4,7 @@ import com.stw.im.common.model.RequestBase;
 import lombok.Data;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description:
  **/
 @Data

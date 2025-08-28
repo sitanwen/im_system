@@ -1,7 +1,7 @@
 package com.stw.im.common.exception;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description:
  **/
 public class ApplicationException extends RuntimeException {

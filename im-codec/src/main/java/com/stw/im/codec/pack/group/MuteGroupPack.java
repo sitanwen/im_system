@@ -3,7 +3,7 @@ package com.stw.im.codec.pack.group;
 import lombok.Data;
 
 /**
- * @author: Chackylee
+ * @author: stw
  * @description: 禁言群tcp通知
  **/
 @Data

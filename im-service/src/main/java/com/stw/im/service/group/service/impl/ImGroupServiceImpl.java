@@ -169,7 +169,7 @@ public class ImGroupServiceImpl implements ImGroupService {
      * @return com.stw.im.common.ResponseVO
      * @description 修改群基础信息，如果是后台管理员调用，则不检查权限，如果不是则检查权限，如果是私有群（微信群）任何人都可以修改资料，公开群只有管理员可以修改
      * 如果是群主或者管理员可以修改其他信息。
-     * @author chackylee
+     * @author stw
      */
     @Override
     @Transactional
@@ -238,7 +238,7 @@ public class ImGroupServiceImpl implements ImGroupService {
      * @param [req]
      * @return com.stw.im.common.ResponseVO
      * @description 获取用户加入的群组
-     * @author chackylee
+     * @author stw
      */
     @Override
     public ResponseVO getJoinedGroup(GetJoinedGroupReq req) {
@@ -280,7 +280,7 @@ public class ImGroupServiceImpl implements ImGroupService {
      * @param [req]
      * @return com.stw.im.common.ResponseVO
      * @description 解散群组，只支持后台管理员和群主解散
-     * @author chackylee
+     * @author stw
      */
     @Override
     @Transactional
