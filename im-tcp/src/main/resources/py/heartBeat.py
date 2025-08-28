@@ -13,7 +13,7 @@ def doPing(scoket):
     clientType = 4
     messageType = 0x0
     appId = 10000
-    userId = 'lld'
+    userId = 'stw'
     imei = str(uuid.uuid1())
 
     ## 数据转换为bytes

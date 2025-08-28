@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>im-system</artifactId>
-        <groupId>com.lld</groupId>
+        <groupId>com.stw</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -49,7 +49,7 @@
 
         <!-- common -->
         <dependency>
-            <groupId>com.lld</groupId>
+            <groupId>com.stw</groupId>
             <artifactId>common</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
@@ -58,7 +58,7 @@
             <artifactId>spring-data-redis</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.lld</groupId>
+            <groupId>com.stw</groupId>
             <artifactId>service</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>compile</scope>
