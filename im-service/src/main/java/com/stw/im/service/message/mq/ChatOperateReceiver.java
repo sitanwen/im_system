@@ -74,7 +74,7 @@ public class ChatOperateReceiver {
                 p2PMessageService.process(messageContent);
 
             } else if (command != null && command == MessageCommand.MSG_RECIVE_ACK.getCommand()) {
-                // 处理消息接收确认
+                // 处理消息接收确认   第二重ACK
                 MessageReciveAckContent ackContent = jsonObject.toJavaObject(MessageReciveAckContent.class);
                 messageSyncService.receiveMark(ackContent);
 

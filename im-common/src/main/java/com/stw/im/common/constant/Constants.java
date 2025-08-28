@@ -70,7 +70,25 @@ public class Constants {
          */
         public static final String userCustomerStatus = "userCustomerStatus";
 
+        public static final Integer USER_SESSION = 1;
     }
+
+    // 消息处理状态键（三状态）
+    public static final String MSG_STATUS_KEY_PREFIX = "msg:status:";
+    // 单聊离线消息键（新格式）
+    public static final String OFFLINE_MSG_P2P_KEY_PREFIX = "offline:msg:p2p:";
+    // 群聊离线消息键（新格式）
+    public static final String OFFLINE_MSG_GROUP_KEY_PREFIX = "offline:msg:group:";
+
+    // 消息状态枚举
+    public enum MsgStatus {
+        PROCESSING("PROCESSING"), SUCCESS("SUCCESS"), FAILED("FAILED");
+        private final String status;
+        MsgStatus(String status) { this.status = status; }
+        public String getStatus() { return status; }
+    }
+
+
 
     public static class RabbitConstants{
 
@@ -92,20 +110,7 @@ public class Constants {
 
         public static final String StoreGroupMessage = "storeGroupMessage";
 
-        // 消息处理状态键（三状态）
-        public static final String MSG_STATUS_KEY_PREFIX = "msg:status:";
-        // 单聊离线消息键（新格式）
-        public static final String OFFLINE_MSG_P2P_KEY_PREFIX = "offline:msg:p2p:";
-        // 群聊离线消息键（新格式）
-        public static final String OFFLINE_MSG_GROUP_KEY_PREFIX = "offline:msg:group:";
 
-        // 消息状态枚举
-        public enum MsgStatus {
-            PROCESSING("PROCESSING"), SUCCESS("SUCCESS"), FAILED("FAILED");
-            private final String status;
-            MsgStatus(String status) { this.status = status; }
-            public String getStatus() { return status; }
-        }
 
 
     }

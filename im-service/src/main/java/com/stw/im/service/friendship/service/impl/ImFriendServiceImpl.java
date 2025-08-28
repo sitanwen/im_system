@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
+import com.stw.im.codec.pack.friendship.*;
 import com.stw.im.common.ResponseVO;
 import com.stw.im.common.config.AppConfig;
 import com.stw.im.common.constant.Constants;

@@ -135,7 +135,10 @@ public class P2PMessageService {
                 return;
             }
 
-            // 3. 消息发送前置回调（若配置开启）
+            // 3. 设置 processing 状态，标记消息正在处理
+            stringRedisTemplate.opsForValue().set(statusKey, Constants.MsgStatus.PROCESSING.getStatus(), 5, TimeUnit.MINUTES);
+
+            // 4. 消息发送前置回调（若配置开启）
             ResponseVO callbackResp = ResponseVO.successResponse();
             if (appConfig.isSendMessageAfterCallback()) {
                 callbackResp = callbackService.beforeCallback(
@@ -145,14 +148,14 @@ public class P2PMessageService {
                 );
             }
 
-            // 4. 前置回调失败则回复错误ACK
+            // 5. 前置回调失败则回复错误ACK
             if (!callbackResp.isOk()) {
                 logger.warn("消息前置回调失败：{}，msgId：{}", callbackResp.getMsg(), messageId);
                 ack(messageContent, callbackResp);
                 return;
             }
 
-            // 5. 生成消息序列号（用于消息排序和同步）
+            // 6. 生成消息序列号（用于消息排序和同步）
             long seq = redisSeq.doGetSeq(
                     appId + ":" + Constants.SeqConstants.Message + ":" +
                             ConversationIdGenerate.generateP2PId(fromId, toId)
@@ -160,7 +163,7 @@ public class P2PMessageService {
             messageContent.setMessageSequence(seq);
             logger.info("消息生成序列号：{}，msgId：{}", seq, messageId);
 
-            // 6. 异步执行消息存储和分发逻辑
+            // 7. 异步执行消息存储和分发逻辑
             threadPoolExecutor.execute(() -> asyncProcess(messageContent, statusKey));
 
         } catch (Exception e) {
@@ -206,11 +209,10 @@ public class P2PMessageService {
             offlineMsg.setConversationType(ConversationTypeEnum.P2P.getCode());
 
         // 判断接收方是否在线（需补充在线状态查询逻辑）
-            boolean isReceiverOnline = isUserOnline(messageContent.getAppId(), messageContent.getToId());
-            if (!isReceiverOnline) {
-                // 接收方离线，存储离线消息
-                messageStoreService.storeOfflineMessage(offlineMsg);
-            }
+//            boolean isReceiverOnline = isUserOnline(messageContent.getAppId(), messageContent.getToId());
+////            if (!isReceiverOnline) {
+////
+////            }
 
 
             // 5.3 回复发送者ACK
@@ -229,9 +231,11 @@ public class P2PMessageService {
                     messageContent
             );
 
-            // 5.7 接收者离线时发送服务端确认
+            // 5.7 接收者离线时发送服务端确认   其实就是离线判断 如果发送者不在线  服务端代发一个确认
             if (clientInfos.isEmpty()) {
                 reciverAck(messageContent);
+                // 接收方离线，存储离线消息
+                messageStoreService.storeOfflineMessage(offlineMsg);
             }
 
             // 5.8 后置回调

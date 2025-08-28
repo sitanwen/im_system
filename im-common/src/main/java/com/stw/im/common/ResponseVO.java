@@ -39,6 +39,12 @@ public class ResponseVO<T> {
         return new ResponseVO(enums.getCode(), enums.getError());
     }
 
+    public static ResponseVO errorResponse(String msg) {  // 新增：直接接收错误消息
+        return new ResponseVO(500, msg);
+    }
+
+
+
     public boolean isOk(){
         return this.code == 200;
     }
@@ -48,6 +54,12 @@ public class ResponseVO<T> {
         this.code = code;
         this.msg = msg;
 //		this.data = null;
+    }
+
+    public ResponseVO(int code, String msg, T data) {  // 补充带data的构造方法
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
     }
 
     public ResponseVO success(){

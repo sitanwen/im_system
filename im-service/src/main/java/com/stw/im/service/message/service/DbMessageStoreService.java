@@ -179,37 +179,25 @@ public class DbMessageStoreService {
 
     /**
      * 存储单聊离线消息到Redis
-     * 当接收方离线时，将消息存入ZSet（按messageKey排序，便于同步）
+     * 当接收方离线时，将消息存入ZSet（按messageSeq排序，便于同步）
      */
     public void storeOfflineMessage(OfflineMessageContent offlineMessage){
 
-        // 发送方的离线消息队列键
-        String fromKey = offlineMessage.getAppId() + ":" + Constants.RedisConstants.OfflineMessage + ":" + offlineMessage.getFromId();
-        // 接收方的离线消息队列键
-        String toKey = offlineMessage.getAppId() + ":" + Constants.RedisConstants.OfflineMessage + ":" + offlineMessage.getToId();
+        Integer appId = offlineMessage.getAppId();
+        String receiverId = offlineMessage.getToId();
+        // 新键格式：offline:msg:p2p:{appId}:{receiverId}
+        String toKey = Constants.OFFLINE_MSG_P2P_KEY_PREFIX + appId + ":" + receiverId;
 
         ZSetOperations<String, String> operations = stringRedisTemplate.opsForZSet();
-        // 若队列长度超过限制，移除最早的消息（保留最新的N条）
-        if(operations.zCard(fromKey) > appConfig.getOfflineMessageCount()){
-            operations.removeRange(fromKey,0,0); // 移除排名最小的元素
-        }
-        // 设置会话ID（用于区分不同会话的离线消息）
-        offlineMessage.setConversationId(conversationService.convertConversationId(
-                ConversationTypeEnum.P2P.getCode(),offlineMessage.getFromId(),offlineMessage.getToId()
-        ));
-        // 存入ZSet，以messageKey为分值（保证有序性）
-        operations.add(fromKey,JSONObject.toJSONString(offlineMessage),
-                offlineMessage.getMessageKey());
+        // 用messageSequence作为score（确保按发送顺序排序）
+        double score = offlineMessage.getMessageSequence();
+        // 存储消息
+        operations.add(toKey, JSONObject.toJSONString(offlineMessage), score);
 
-        // 处理接收方的离线消息队列（逻辑同上）
-        if(operations.zCard(toKey) > appConfig.getOfflineMessageCount()){
-            operations.removeRange(toKey,0,0);
+        // 超过离线消息限制时，移除最早的消息（按score排序）
+        if (operations.zCard(toKey) > appConfig.getOfflineMessageCount()) {
+            operations.removeRange(toKey, 0, 0); // 移除score最小的元素
         }
-        offlineMessage.setConversationId(conversationService.convertConversationId(
-                ConversationTypeEnum.P2P.getCode(),offlineMessage.getToId(),offlineMessage.getFromId()
-        ));
-        operations.add(toKey,JSONObject.toJSONString(offlineMessage),
-                offlineMessage.getMessageKey());
     }
 
 
