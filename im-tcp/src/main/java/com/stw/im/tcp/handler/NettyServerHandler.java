@@ -19,6 +19,7 @@ import com.stw.im.common.enums.command.UserEventCommand;
 import com.stw.im.common.model.UserClientDto;
 import com.stw.im.common.model.UserSession;
 import com.stw.im.common.model.message.CheckSendMessageReq;
+import com.stw.im.common.utils.UserContextHolder;
 import com.stw.im.tcp.feign.FeignMessageService;
 import com.stw.im.tcp.publish.MqMessageProducer;
 import com.stw.im.tcp.redis.RedisManager;
@@ -78,6 +79,16 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<Message> {
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message msg) throws Exception {
+
+        // 从Channel获取appId和userId（登录时已设置）
+        Integer appId = (Integer) ctx.channel().attr(AttributeKey.valueOf(Constants.AppId)).get();
+        String userId = (String) ctx.channel().attr(AttributeKey.valueOf(Constants.UserId)).get();
+
+        // 设置上下文到ThreadLocal，供Service层的AOP获取
+        UserContextHolder.setCurrentAppId(appId);
+        UserContextHolder.setOperatorId(userId);
+
+
         Integer command = msg.getMessageHeader().getCommand();
 
         // 处理登录事件

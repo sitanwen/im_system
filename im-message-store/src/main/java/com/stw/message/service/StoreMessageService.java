@@ -1,5 +1,6 @@
 package com.stw.message.service;
 
+import com.stw.im.common.annotation.AutoFill;
 import com.stw.im.common.model.message.GroupChatMessageContent;
 import com.stw.im.common.model.message.MessageContent;
 import com.stw.message.dao.ImGroupMessageHistoryEntity;
@@ -39,22 +40,19 @@ public class StoreMessageService {
     /**
      * 处理单聊消息的持久化存储
      * 采用事务保证消息体和消息历史的原子性存储
-     * @param doStoreP2PMessageDto 单聊消息存储DTO，包含消息内容和消息体
+     * @param dto 单聊消息存储DTO，包含消息内容和消息体
      */
-    @Transactional(rollbackFor = Exception.class) // 发生任何异常都回滚事务
-    public void doStoreP2PMessage(DoStoreP2PMessageDto doStoreP2PMessageDto) {
-        // 1. 存储消息体（实际消息内容，如文本、图片等）
-        // 消息体全局唯一，通过messageKey与消息历史关联
-        imMessageBodyMapper.insert(doStoreP2PMessageDto.getImMessageBodyEntity());
+    @Transactional(rollbackFor = Exception.class)
+    @AutoFill(AutoFill.Operation.INSERT) // 新增操作：填充createTime、appId等
+    public void doStoreP2PMessage(DoStoreP2PMessageDto dto) {
+        // 1. 存储消息体（此时messageBody的公共字段已被AOP填充）
+        imMessageBodyMapper.insert(dto.getImMessageBodyEntity());
 
-        // 2. 生成发送方和接收方的消息历史记录（写扩散核心）
-        List<ImMessageHistoryEntity> messageHistoryList = extractToP2PMessageHistory(
-                doStoreP2PMessageDto.getMessageContent(),
-                doStoreP2PMessageDto.getImMessageBodyEntity()
+        // 2. 生成并存储消息历史（同样需要填充公共字段）
+        List<ImMessageHistoryEntity> historyList = extractToP2PMessageHistory(
+                dto.getMessageContent(), dto.getImMessageBodyEntity()
         );
-
-        // 3. 批量插入两条消息历史记录（发送方和接收方各一条）
-        imMessageHistoryMapper.insertBatchSomeColumn(messageHistoryList);
+        imMessageHistoryMapper.insertBatchSomeColumn(historyList);
     }
 
 

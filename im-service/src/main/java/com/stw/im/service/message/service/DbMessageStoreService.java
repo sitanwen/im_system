@@ -63,6 +63,7 @@ public class DbMessageStoreService {
      * 存储单聊消息（异步方式）
      * 核心逻辑：生成消息体 -> 封装DTO -> 发送到RabbitMQ队列，由消息存储服务异步处理持久化
      */
+
     @Transactional
     public void storeP2PMessage(MessageContent messageContent){
         // 1. 生成消息体实体（包含消息内容、时间等核心信息）

@@ -3,6 +3,8 @@ package com.stw.message.mq;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.stw.im.common.constant.Constants;
+import com.stw.im.common.model.message.MessageContent;
+import com.stw.im.common.utils.UserContextHolder;
 import com.stw.message.dao.ImMessageBodyEntity;
 import com.stw.message.model.DoStoreP2PMessageDto;
 import com.stw.message.service.StoreMessageService;
@@ -74,6 +76,12 @@ public class StoreP2PMessageReceiver {
             // 从JSON中提取消息体实体并设置到DTO中
             ImMessageBodyEntity messageBody = jsonObject.getObject("messageBody", ImMessageBodyEntity.class);
             doStoreP2PMessageDto.setImMessageBodyEntity(messageBody);
+
+            // 从消息内容中提取上下文信息并设置
+            MessageContent content = doStoreP2PMessageDto.getMessageContent();
+            UserContextHolder.setCurrentAppId(content.getAppId()); // 设置appId
+            UserContextHolder.setOperatorId(content.getFromId()); // 设置操作人（发送者ID）
+
 
             // 调用服务层方法完成单聊消息的持久化（存储到数据库）
             storeMessageService.doStoreP2PMessage(doStoreP2PMessageDto);
