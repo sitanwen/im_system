@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L-IM 聊天</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="login-shell" id="loginView">
+    <section class="login-panel">
+      <div class="login-brand">
+        <div class="login-brand__mark">L</div>
+        <div>
+          <p class="login-brand__eyebrow">L-IM</p>
+          <h1>欢迎回来</h1>
+          <p class="login-brand__text">先登录，再进入聊天。</p>
+        </div>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <label>
+          <span>用户名</span>
+          <input id="username" type="text" value="user" autocomplete="username" required>
+        </label>
+        <label>
+          <span>密码</span>
+          <input id="password" type="password" value="123456" autocomplete="current-password" required>
+        </label>
+
+        <div class="login-form__meta">
+          <label class="remember-row">
+            <input type="checkbox" checked>
+            <span>记住我</span>
+          </label>
+          <button id="forgotPasswordButton" class="link-button" type="button">找回密码</button>
+        </div>
+
+        <button class="primary-button" type="submit">登录</button>
+
+        <div class="login-tips">
+          <span>默认账号：`user`</span>
+          <span>默认密码：`123456`</span>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <div class="chat-shell is-hidden" id="chatView">
+    <aside class="workspace-sidebar">
+      <div class="workspace-profile">
+        <div class="workspace-profile__avatar">U</div>
+        <div>
+          <strong id="profileName">user</strong>
+          <p id="profileStatus">已登录</p>
+        </div>
+      </div>
+
+      <div class="workspace-search">
+        <input id="contactSearch" type="search" placeholder="搜索联系人">
+      </div>
+
+      <div class="workspace-section">
+        <div class="workspace-section__head">
+          <span>会话</span>
+          <button id="newChatButton" class="icon-button" type="button">+</button>
+        </div>
+        <div id="conversationList" class="conversation-list"></div>
+      </div>
+    </aside>
+
+    <main class="chat-panel">
+      <header class="chat-panel__header">
+        <div class="chat-panel__user">
+          <div class="chat-panel__avatar" id="activeAvatar">A</div>
+          <div>
+            <h2 id="chatTitle">Alice</h2>
+            <p id="chatSubtitle">在线</p>
+          </div>
+        </div>
+        <div class="chat-panel__actions">
+          <button class="ghost-button" type="button">语音</button>
+          <button class="ghost-button" type="button">更多</button>
+        </div>
+      </header>
+
+      <section id="messageList" class="message-list"></section>
+
+      <form id="composerForm" class="composer">
+        <div class="composer__tools">
+          <span id="composerStatus">已连接</span>
+          <button id="switchModeButton" class="link-button" type="button">切换真实联调</button>
+        </div>
+        <textarea id="messageInput" rows="3" placeholder="输入消息，按 Enter 发送，Shift + Enter 换行"></textarea>
+        <div class="composer__footer">
+          <span id="connectionText">演示模式</span>
+          <button class="primary-button" type="submit">发送</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <dialog id="configDialog" class="config-dialog">
+    <form id="configForm" class="config-form" method="dialog">
+      <div class="config-form__head">
+        <h3>真实联调配置</h3>
+        <button class="link-button" type="submit">关闭</button>
+      </div>
+
+      <label>
+        <span>HTTP 服务地址</span>
+        <input id="apiBase" type="text" value="http://localhost:8000">
+      </label>
+      <div class="config-grid">
+        <label>
+          <span>AppId</span>
+          <input id="appId" type="number" value="10000">
+        </label>
+        <label>
+          <span>ClientType</span>
+          <input id="clientType" type="number" value="5">
+        </label>
+      </div>
+      <label>
+        <span>IMEI</span>
+        <input id="imei" type="text" value="web-chat-demo">
+      </label>
+      <label>
+        <span>WebSocket 地址</span>
+        <input id="wsUrl" type="text" placeholder="留空时自动取登录返回路由">
+      </label>
+
+      <div class="config-form__footer">
+        <button id="connectLiveButton" class="primary-button" type="button">连接真实服务</button>
+      </div>
+    </form>
+  </dialog>
+
+  <template id="conversationItemTemplate">
+    <button class="conversation-item" type="button">
+      <span class="conversation-item__avatar"></span>
+      <span class="conversation-item__body">
+        <strong class="conversation-item__name"></strong>
+        <span class="conversation-item__preview"></span>
+      </span>
+      <span class="conversation-item__time"></span>
+    </button>
+  </template>
+
+  <script src="./app.js"></script>
+</body>
+</html>
